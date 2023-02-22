@@ -3,8 +3,8 @@ name = "gcp-mc"
 version = "0.1.0"
 description = "A minecraft server google cloud platform infrastructure project"
 authors = ["Vasil Derilov"]
-license = "GCP-3"
-# readme = "README.md"
+license = "GPL-3"
+readme = "README.md"
 packages = [{include = "gcp_mc"},
     {include = "utils", from="lib" }, 
     {include = "palmsbet_mc", from = "modules"}, 
