@@ -2,10 +2,6 @@ import os
 import json
 from pathlib import Path
 
-BASE_DIR=Path("")
-ENV_DIR=BASE_DIR + "ENV"
-MODULES_DIR=BASE_DIR + "modules"
-
 def set_vars_from_json(file:str): 
     
     with open(file) as env_file:
@@ -26,3 +22,7 @@ def require_var(var_name:str) -> str:
         raise Exception(f"Missing environment variable ${var_name}")
     
     return env_var
+
+BASE_DIR=Path()
+MODULES_DIR=BASE_DIR.joinpath("modules")
+CURSEFORGE_API_KEY=require_var("CURSE_API_KEY")

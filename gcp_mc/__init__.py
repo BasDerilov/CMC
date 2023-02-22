@@ -1,1 +1,1 @@
-from .main import main
+from .gcp_mc import main

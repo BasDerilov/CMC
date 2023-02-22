@@ -1,15 +1,15 @@
 def started(message:str):
-    print(_bcolors.OKBLUE + f"| ::: {message.upper()} ::: |" + _bcolors.ENDC)
+    print(_bcolors.OKBLUE + f"| ::: {message.lower()} ::: |" + _bcolors.ENDC)
 
 def success(message:str):
-    print(_bcolors.OKGREEN + f"< ::: {message.upper()} ::: >" + _bcolors.ENDC)
+    print(_bcolors.OKGREEN + f"< ::: {message.lower()} ::: >" + _bcolors.ENDC)
 
 def failure(message:str):
-    print(_bcolors.FAIL + f"X ::: {message.upper()} ::: X" + _bcolors.ENDC)
+    print(_bcolors.FAIL + f"X ::: {message.lower()} ::: X" + _bcolors.ENDC)
+    raise Exception(message)
     
 def warning(message:str):
-    print(_bcolors.WARNING + f"! ::: {message.upper()} ::: !" + _bcolors.ENDC)
-    raise Exception(message)
+    print(_bcolors.WARNING + f"! ::: {message.lower()} ::: !" + _bcolors.ENDC)
     
 class _bcolors:
     HEADER = '\033[95m'

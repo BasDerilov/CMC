@@ -1,0 +1,10 @@
+{
+  "storage": {
+    "database": "dynamp-t",
+    "hostname": "localhost",
+    "password": "palmsbet-123",
+    "port": "3306",
+    "type": "mysql",
+    "userid": "dynmap"
+  }
+}

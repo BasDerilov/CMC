@@ -1,1 +1,1 @@
-from .scripts.dynmap import *
+from .scripts import *
