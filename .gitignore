@@ -1,4 +1,4 @@
 .vscode
 dist
 **/__pycache__
-modules/palmsbet_mc/server/**
+modules/minecraft/server/**

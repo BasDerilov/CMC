@@ -7,8 +7,7 @@ license = "GPL-3"
 readme = "README.md"
 packages = [{include = "gcp_mc"},
     {include = "utils", from="lib" }, 
-    {include = "palmsbet_mc", from = "modules"}, 
-    {include = "dynmap-db", from = "modules"}]
+    {include = "minecraft", from = "modules"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -23,6 +22,7 @@ tqdm = "^4.64.1"
 
 [tool.poetry.group.dev.dependencies]
 autopep8 = "^2.0.1"
+black = "^23.1.0"
 
 [build-system]
 requires = ["poetry-core"]

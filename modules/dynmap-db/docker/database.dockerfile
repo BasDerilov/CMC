@@ -1,4 +1,0 @@
-FROM mysql:debian
-
-EXPOSE 3306
-EXPOSE 33060
