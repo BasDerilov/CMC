@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gcp-mc"
-version = "0.1.0"
+version = "0.2.0"
 description = "A minecraft server google cloud platform infrastructure project"
 authors = ["Vasil Derilov"]
 license = "GPL-3"

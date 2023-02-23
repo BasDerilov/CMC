@@ -26,3 +26,5 @@ def require_var(var_name:str) -> str:
 BASE_DIR=Path()
 MODULES_DIR=BASE_DIR.joinpath("modules")
 CURSEFORGE_API_KEY=require_var("CURSE_API_KEY")
+
+MINECRAFT_SERVER_IMAGE="openjdk:17.0.1-jdk-slim"
