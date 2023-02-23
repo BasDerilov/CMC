@@ -1,4 +1,4 @@
-<h1 align="center">Google Platform Minecraft</h1>
+<h1 align="center">Google Cloud Platform Minecraft</h1>
 
 <p align="center">
   <img alt="Github top language" src="https://img.shields.io/github/languages/top/BasDerilov/gcp_mc?color=56BEB8">
@@ -19,7 +19,7 @@
 <!-- Status -->
 
 <h4 align="center"> 
-	🚧  Gcp_mc 🚀 Under construction...  🚧
+	🚧  gcp_mc 🚀 Under construction...  🚧
 </h4>
 
 <hr>
@@ -38,27 +38,26 @@
 
 ## :dart: About
 
-Describe your project
+This is a OS agnostic tool for quickly spooling up minecraft servers with incorporated plugins and Google Cloud Platform Deployment capabilities
 
 ## :sparkles: Features
 
-:heavy_check_mark: Feature 1;\
-:heavy_check_mark: Feature 2;\
-:heavy_check_mark: Feature 3;
+:heavy_check_mark: Multi Platform;\
+:heavy_check_mark: Highly Configurable;\
+:heavy_check_mark: Completely Self Contained;
 
 ## :rocket: Technologies
 
 The following tools were used in this project:
 
-- [Expo](https://expo.io/)
-- [Node.js](https://nodejs.org/en/)
-- [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
+- [Python](https://www.python.org/)
+- [Poetry](https://python-poetry.org/)
+- [Docker](https://www.docker.com/)
+- [Minecraft](https://www.minecraft.net/en-us)
 
 ## :white_check_mark: Requirements
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com), [Docker](https://www.docker.com/) and [Python](https://www.python.org/) installed.
 
 ## :checkered_flag: Starting
 
@@ -75,7 +74,7 @@ $ poetry install
 # Run the project
 $ poetry run gcp_mc_cli
 
-# The server will be generated in the modules/palmsbet_mc/server folder
+# The server will start on port 25565 by default
 ```
 
 ## :memo: License
