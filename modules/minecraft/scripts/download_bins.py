@@ -7,8 +7,14 @@ from tqdm.auto import tqdm
 
 import utils.logging as log
 
-from utils.env import CURSEFORGE_API_KEY
-from .env import CURSE_API, GAME_VERSION, MODULE_DIR, SERVER_DIR, SERVER_PLUGINS_DIR
+from .minecraft_env import (
+    CURSE_API,
+    GAME_VERSION,
+    MODULE_DIR,
+    SERVER_DIR,
+    SERVER_PLUGINS_DIR,
+    CURSEFORGE_API_KEY,
+)
 
 
 def download_bin(url: str, location: Path, name: str):
@@ -16,6 +22,7 @@ def download_bin(url: str, location: Path, name: str):
         os.makedirs(location)
 
     with requests.get(url, stream=True) as response:
+
         total_length = int(response.headers.get("Content-Length"))
 
         if response.status_code != 200:
@@ -24,7 +31,7 @@ def download_bin(url: str, location: Path, name: str):
 
         print(name)
         with tqdm.wrapattr(
-            response.raw, "read", total=total_length, desc=f"Downloading "
+            response.raw, "read", total=total_length, desc="Downloading "
         ) as raw:
             file_path = location.joinpath(name)
             with open(file_path, "wb") as file:
@@ -42,6 +49,7 @@ def download_curse_resource(slug: str):
         f"{CURSE_API}/v1/mods/search",
         params={"gameId": "432", "slug": slug},
         headers=headers,
+        timeout=1000,
     )
 
     if responese.status_code != 200:
@@ -59,12 +67,13 @@ def download_curse_resource(slug: str):
     ]
 
     responese = requests.get(
-        f"{CURSE_API}/v1/mods/{mod_id}/files/{file_id}", headers=headers
+        f"{CURSE_API}/v1/mods/{mod_id}/files/{file_id}", headers=headers, timeout=10000
     )
 
     if responese.status_code != 200:
         log.failure(
-            f"curse resource file for {slug} returned status code {responese.status_code}"
+            f"curse resource file for {slug}\
+                returned status code {responese.status_code}"
         )
         return
 
@@ -78,8 +87,8 @@ def download_curse_resource(slug: str):
 def download_deps(config_path=MODULE_DIR.joinpath("server.json")):
     log.started("reading palmsbet-mc dependencies")
 
-    with open(config_path, "r") as f:
-        deps = json.load(f)
+    with open(config_path, "r", encoding="jar") as required_bins:
+        deps = json.load(required_bins)
 
         download_bin(deps["server"], SERVER_DIR, "server.jar")
 

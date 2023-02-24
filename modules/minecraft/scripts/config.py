@@ -6,7 +6,7 @@ import utils.logging as log
 
 
 class Config:
-    def write_properties(src_json: Path, tgt_properties: Path):
+    def write_properties(self, src_json: Path, tgt_properties: Path):
         log.started(f"converting {src_json} to {tgt_properties}")
 
         with open(tgt_properties, "w+") as file:
@@ -14,6 +14,7 @@ class Config:
 
             for prop in data:
                 print(f"{prop}={data[prop]}")
+
                 file.write(f"{prop}={data[prop]}\n")
 
         log.success(f"coverted file {tgt_properties} with success")

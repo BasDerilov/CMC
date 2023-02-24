@@ -1,5 +1,5 @@
 from docker import DockerClient
-from .env import DATABASE_IMAGE, PORTS, as_tcp_ports
+from .minecraft_env import DATABASE_IMAGE, PORTS, as_tcp_ports
 
 
 def start_db_docker(client: DockerClient):

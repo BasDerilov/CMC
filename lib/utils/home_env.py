@@ -1,6 +1,6 @@
+from pathlib import Path
 import os
 import json
-from pathlib import Path
 
 
 def set_vars_from_json(file: str):
@@ -17,7 +17,7 @@ def set_vars_from_json(file: str):
 def require_var(var_name: str) -> str:
     env_var = os.environ.get(var_name)
 
-    if env_var == None:
+    if env_var is None:
         raise Exception(f"Missing environment variable ${var_name}")
 
     return env_var

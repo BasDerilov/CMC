@@ -21,8 +21,9 @@ tqdm = "^4.64.1"
 
 
 [tool.poetry.group.dev.dependencies]
-autopep8 = "^2.0.1"
-black = "^23.1.0"
+pytest = "^7.2.1"
+pylint = "^2.16.2"
+flake8 = "^6.0.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -30,3 +31,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 gcp_mc_cli = 'gcp_mc:main'
+
+[tool.black]
+line-length = 88

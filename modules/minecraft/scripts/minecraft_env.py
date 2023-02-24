@@ -1,4 +1,4 @@
-from utils import env
+from utils import home_env
 from .config import Config
 
 
@@ -19,8 +19,22 @@ def as_tcp_ports(ports: list) -> dict:
     return tcp_ports
 
 
+def get_all_ports():
+    ports = set()
+
+    mc = filter_ports(Config.get_data(CONFIG_DIR.joinpath("server.properties.json")))
+    dynmap = filter_ports(
+        Config.get_data(CONFIG_DIR.joinpath("dynmap.configuration.json"))["storage"]
+    )
+
+    for i in [*mc, *dynmap]:
+        PORTS.add(i)
+
+    return ports
+
+
 # Directory variables
-MODULE_DIR = env.MODULES_DIR.joinpath("minecraft")
+MODULE_DIR = home_env.MODULES_DIR.joinpath("minecraft")
 SERVER_DIR = MODULE_DIR.joinpath("server")
 SERVER_PLUGINS_DIR = SERVER_DIR.joinpath("plugins")
 CONFIG_DIR = MODULE_DIR.joinpath("config")
@@ -29,18 +43,10 @@ CONFIG_DIR = MODULE_DIR.joinpath("config")
 CURSE_API = "https://api.curseforge.com"
 GAME_VERSION = "1.19.3"
 MINECRAFT_SERVER_IMAGE = "openjdk:17.0.1-jdk-slim"
-CURSEFORGE_API_KEY = env.require_var("CURSE_API_KEY")
+CURSEFORGE_API_KEY = home_env.require_var("CURSE_API_KEY")
 
 # Database variables
 DATABASE_IMAGE = "mysql:oracle"
-MYSQL_SETTINGS = {"MYSQL_ROOT_PASSWORD": env.require_var("MYSQL_ROOT_PASSWORD")}
+MYSQL_SETTINGS = {"MYSQL_ROOT_PASSWORD": home_env.require_var("MYSQL_ROOT_PASSWORD")}
 
-PORTS = set()
-
-mc = filter_ports(Config.get_data(CONFIG_DIR.joinpath("server.properties.json")))
-dynmap = filter_ports(
-    Config.get_data(CONFIG_DIR.joinpath("dynmap.configuration.json"))["storage"]
-)
-
-for i in [*mc, *dynmap]:
-    PORTS.add(i)
+PORTS = get_all_ports()

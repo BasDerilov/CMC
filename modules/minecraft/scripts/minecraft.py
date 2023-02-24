@@ -1,4 +1,4 @@
-from .env import MINECRAFT_SERVER_IMAGE, PORTS, SERVER_DIR, as_tcp_ports
+from .minecraft_env import MINECRAFT_SERVER_IMAGE, PORTS, SERVER_DIR, as_tcp_ports
 from utils import logging as log
 
 

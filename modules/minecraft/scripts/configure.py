@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from .env import CONFIG_DIR, SERVER_DIR, SERVER_PLUGINS_DIR
+from .minecraft_env import CONFIG_DIR, SERVER_DIR, SERVER_PLUGINS_DIR
 from .config import Config
 
 

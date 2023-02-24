@@ -1,17 +1,20 @@
+"""gcp_mc is a tool for quicly spooling up minecraft servers locally or on Google Cloud
+Platform
+
+"""
+
+
 import docker
 from pick import pick
-from utils import MINECRAFT_SERVER_IMAGE
-from utils import logging as log
-
 from modules.minecraft import (
     configure_plugins,
     configure_server,
     download_deps,
-    SERVER_DIR,
 )
 
 
 def main():
+    """The main entrypoint of gcp_mc"""
     action = pick(
         ["start-locally", "deploy-to-cloud"],
         "Choose server deployment action",
