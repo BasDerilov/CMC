@@ -5,10 +5,10 @@ Platform
 
 
 import docker
+from minecraft import start_minecraft_docker
+from minecraft import start_db_docker
 from pick import pick
 from modules.minecraft import (
-    configure_plugins,
-    configure_server,
     download_deps,
 )
 
@@ -22,11 +22,11 @@ def main():
     )
 
     download_deps()
-    configure_server()
-    configure_plugins()
 
     print(action)
     if action[1] == 0:
         client = docker.from_env()
+        start_minecraft_docker(client)
+        start_db_docker(client)
 
     print("gcp_mc WORKS!")

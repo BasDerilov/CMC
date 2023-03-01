@@ -1,10 +1,20 @@
+from utils import logging as log
 from docker import DockerClient
-from .minecraft_env import DATABASE_IMAGE, PORTS, as_tcp_ports
+from ..env import DATABASE_IMAGE
 
 
 def start_db_docker(client: DockerClient):
-    port_dict = as_tcp_ports(PORTS)
 
     databse_container = client.containers.run(
-        DATABASE_IMAGE, ports=port_dict, detach=True, working_dir="/minecraft"
+        DATABASE_IMAGE,
+        environment={
+            "MYSQL_ROOT_PASSWORD": "123",
+            "MYSQL_DATABASE": "dynmap",
+            "MYSQL_USER": "dynmap",
+            "MYSQL_PASSWORD": "dynmap123",
+        },
+        detach=True,
+        network_mode="host",
     )
+
+    log.started(f"container started with id: {databse_container.short_id}")

@@ -1,47 +1,46 @@
-import os
 import json
+import logging
 import shutil
+from .utils import ensure_dirs
 import requests
 from pathlib import Path
 from tqdm.auto import tqdm
 
-import utils.logging as log
-
-from .minecraft_env import (
+from ..env import (
     CURSE_API,
     GAME_VERSION,
-    MODULE_DIR,
     SERVER_DIR,
     SERVER_PLUGINS_DIR,
     CURSEFORGE_API_KEY,
 )
 
+logger = logging.getLogger(__name__)
 
-def download_bin(url: str, location: Path, name: str):
-    if not os.path.exists(location):
-        os.makedirs(location)
+
+def download_bin(url: str, file_path: Path):
+
+    ensure_dirs(file_path)
 
     with requests.get(url, stream=True) as response:
 
         total_length = int(response.headers.get("Content-Length"))
 
         if response.status_code != 200:
-            log.failure(f"response code for {url} was {response.status_code}")
+            logger.error(f"response code for {url} was {response.status_code}")
             return
 
-        print(name)
+        print(file_path)
         with tqdm.wrapattr(
             response.raw, "read", total=total_length, desc="Downloading "
         ) as raw:
-            file_path = location.joinpath(name)
             with open(file_path, "wb") as file:
                 shutil.copyfileobj(raw, file)
 
-    log.success(f"wrote file {file_path}")
+    logger.info(f"downloaded file {file_path}")
 
 
 def download_curse_resource(slug: str):
-    log.started(f"fetching {slug}")
+    logger.info(f"fetching {slug}")
 
     headers = {"Accept": "application/json", "x-api-key": CURSEFORGE_API_KEY}
 
@@ -53,7 +52,8 @@ def download_curse_resource(slug: str):
     )
 
     if responese.status_code != 200:
-        log.failure(
+
+        logger.error(
             f"curse resource {slug} returned status code {responese.status_code}"
         )
         return
@@ -71,7 +71,7 @@ def download_curse_resource(slug: str):
     )
 
     if responese.status_code != 200:
-        log.failure(
+        logger.error(
             f"curse resource file for {slug}\
                 returned status code {responese.status_code}"
         )
@@ -84,10 +84,10 @@ def download_curse_resource(slug: str):
     download_bin(download_url, SERVER_PLUGINS_DIR, file_name)
 
 
-def download_deps(config_path=MODULE_DIR.joinpath("server.json")):
-    log.started("reading palmsbet-mc dependencies")
+def download_deps(source_json: Path):
+    logger.info("reading palmsbet-mc dependencies")
 
-    with open(config_path, "r", encoding="jar") as required_bins:
+    with open(source_json, "r") as required_bins:
         deps = json.load(required_bins)
 
         download_bin(deps["server"], SERVER_DIR, "server.jar")

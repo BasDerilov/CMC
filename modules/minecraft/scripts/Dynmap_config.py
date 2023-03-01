@@ -6,38 +6,29 @@ import yaml
 class Dynmap:
     configuration: dict
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         """Create a dynmap configuration manually"""
         self.configuration = kwargs
-        self.configuration.storage = args
-
-        return self
 
     @classmethod
-    def from_env(self, cls, **kwargs):
+    def from_env(cls, **kwargs):
         """creates a dynmap configuration from the current environment
 
         Returns:
             Dynmap: dynmap configuration object
         """
-        db_name = kwargs.pop("DB_NAME", "dynmap")
-        host = kwargs.pop("HOST", "localhost")
-        password = kwargs.pop("DB_PASSWORD")
-        port = kwargs.pop("PORT", "3306")
-        db_type = kwargs.pop("DB_TYPE", "mysql")
-        user = kwargs.pop("DB_USER", "dynmap")
 
-        return cls(
-            database=db_name,
-            hostname=host,
-            password=password,
-            port=port,
-            type=db_type,
-            userid=user,
-            *kwargs,
-        )
+        storage = {
+            "database": kwargs.pop("db_name", "dynmap"),
+            "host": kwargs.pop("host", "localhost"),
+            "password": kwargs.pop("db_password", "dynmap123"),
+            "port": kwargs.pop("port", "3306"),
+            "type": kwargs.pop("db_type", "mysql"),
+            "userid": kwargs.pop("db_user", "dynmap"),
+        }
 
-    @classmethod
+        return cls(storage=storage, **kwargs)
+
     def write_as_yml(self, destination: Path):
         log.started(f"generating {destination}")
 
