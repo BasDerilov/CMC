@@ -1,3 +1,4 @@
+import collections
 import logging
 import os
 from pathlib import Path
@@ -35,10 +36,19 @@ def write_as_config(destination: Path, configuration_object: dict):
 
 
 def write_as_yml(destination: Path, configuration_object: dict):
-    logger.started(f"generating {destination}")
+    logger.info(f"generating {destination}")
 
     with open(destination, "w+") as file:
         data: dict = configuration_object
         yaml.dump(data, file)
 
-    logger.success(f"generated file {destination} with success")
+    logger.info(f"generated file {destination} with success")
+
+
+def deep_update(disctionary, new_data):
+    for k, v in new_data.items():
+        if isinstance(v, collections.abc.Mapping):
+            disctionary[k] = deep_update(disctionary.get(k, {}), v)
+        else:
+            disctionary[k] = v
+    return disctionary

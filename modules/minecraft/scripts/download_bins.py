@@ -1,7 +1,6 @@
 import json
 import logging
 import shutil
-from .utils import ensure_dirs
 import requests
 from pathlib import Path
 from tqdm.auto import tqdm
@@ -9,8 +8,6 @@ from tqdm.auto import tqdm
 from ..env import (
     CURSE_API,
     GAME_VERSION,
-    SERVER_DIR,
-    SERVER_PLUGINS_DIR,
     CURSEFORGE_API_KEY,
 )
 
@@ -18,8 +15,6 @@ logger = logging.getLogger(__name__)
 
 
 def download_bin(url: str, file_path: Path):
-
-    ensure_dirs(file_path)
 
     with requests.get(url, stream=True) as response:
 
@@ -39,7 +34,7 @@ def download_bin(url: str, file_path: Path):
     logger.info(f"downloaded file {file_path}")
 
 
-def download_curse_resource(slug: str):
+def download_curse_resource(slug: str, server_dir: Path):
     logger.info(f"fetching {slug}")
 
     headers = {"Accept": "application/json", "x-api-key": CURSEFORGE_API_KEY}
@@ -81,18 +76,18 @@ def download_curse_resource(slug: str):
     download_url = responese["data"]["downloadUrl"]
     file_name = responese["data"]["fileName"]
 
-    download_bin(download_url, SERVER_PLUGINS_DIR, file_name)
+    download_bin(download_url, server_dir.joinpath("plugins").joinpath(file_name))
 
 
-def download_deps(source_json: Path):
+def download_deps(source_json: Path, server_dir: Path):
     logger.info("reading palmsbet-mc dependencies")
 
     with open(source_json, "r") as required_bins:
         deps = json.load(required_bins)
 
-        download_bin(deps["server"], SERVER_DIR, "server.jar")
+        download_bin(deps["server"], server_dir.joinpath("server.jar"))
 
         plugins = deps["plugins"]
 
         for plugin in plugins:
-            download_curse_resource(plugin)
+            download_curse_resource(plugin, server_dir)

@@ -24,7 +24,7 @@
     "broadcast-rcon-to-ops": "true",
     "view-distance": "10",
     "allow-nether": "true",
-    "server-port": "25565",
+    "server-port": "25577",
     "enable-rcon": "false",
     "sync-chunk-writes": "true",
     "op-permission-level": "4",

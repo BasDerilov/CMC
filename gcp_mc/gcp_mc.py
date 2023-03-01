@@ -4,13 +4,8 @@ Platform
 """
 
 
-import docker
-from minecraft import start_minecraft_docker
-from minecraft import start_db_docker
 from pick import pick
-from modules.minecraft import (
-    download_deps,
-)
+from minecraft import main as mc_server
 
 
 def main():
@@ -21,12 +16,8 @@ def main():
         default_index=0,
     )
 
-    download_deps()
-
     print(action)
     if action[1] == 0:
-        client = docker.from_env()
-        start_minecraft_docker(client)
-        start_db_docker(client)
+        mc_server()
 
     print("gcp_mc WORKS!")
