@@ -1,4 +1,0 @@
-{
-  "server": "https://api.papermc.io/v2/projects/paper/versions/1.19.3/builds/409/downloads/paper-1.19.3-409.jar",
-  "plugins": ["dynmap"]
-}

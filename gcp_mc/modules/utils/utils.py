@@ -1,6 +1,5 @@
-from pathlib import Path
-import os
 import json
+import os
 
 
 def set_vars_from_json(file: str):
@@ -23,7 +22,3 @@ def require_var(var_name: str) -> str:
         raise Exception(f"Missing environment variable ${var_name}")
 
     return env_var
-
-
-BASE_DIR = Path()
-MODULES_DIR = BASE_DIR.joinpath("modules")

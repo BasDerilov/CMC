@@ -19,7 +19,7 @@
 <!-- Status -->
 
 <h4 align="center"> 
-	🚧  gcp_mc 🚀 Under construction...  🚧
+	🚧  GCP-MC 🚀 Under construction...  🚧
 </h4>
 
 <hr>
@@ -38,7 +38,7 @@
 
 ## :dart: About
 
-This is a OS agnostic tool for quickly spooling up minecraft servers with incorporated plugins and Google Cloud Platform Deployment capabilities
+This is a OS agnostic tool for quickly spooling up minecraft servers with incorporated plugins. It should help you easily maintain and keep a large surver up to date
 
 ## :sparkles: Features
 
@@ -71,10 +71,13 @@ $ cd gcp_mc
 # Install dependencies
 $ poetry install
 
-# Run the project
-$ poetry run gcp_mc_cli
+# Enter the virtual environment
+$ poetry run shell
 
-# The server will start on port 25565 by default
+# If everything installed corectly this should give you the available commands
+# Keep in mind the CURSE_API_KEY still needs to be set as an env variable
+$ python -m gcp_mc --help
+
 ```
 
 ## :memo: License
