@@ -72,7 +72,7 @@ $ cd gcp_mc
 $ poetry install
 
 # Enter the virtual environment
-$ poetry run shell
+$ poetry shell
 
 # If everything installed corectly this should give you the available commands
 # Keep in mind the CURSE_API_KEY still needs to be set as an env variable
