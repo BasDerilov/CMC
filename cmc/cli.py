@@ -4,11 +4,11 @@ Platform
 """
 
 
-import typer
 from pathlib import Path
+import typer
 from rich.console import Console
 from cmc import __app_name__, __version__
-from .modules.minecraft import create_server
+from .modules.minecraft import Minecraft
 
 from typing import Optional
 
@@ -56,7 +56,26 @@ def init(
         project_name (str): the name of your minecraft project (server)
     """
 
-    create_server(Path.cwd().joinpath(project_name), {}, dynmap={})
+    # create_server(Path.cwd().joinpath(project_name), {}, dynmap={})
+
+
+@app.command()
+def install(
+    project_name: str = typer.Option(
+        str("server"),
+        "--proj-name",
+        "-n",
+        prompt="project name",
+    ),
+) -> None:
+    """the install command will create a server directory and install your bins in it
+
+    Args:
+        project_name (str, optional): _description_. Defaults to typer.Option
+        ( str("server"), "--proj-name", "-n", prompt="project name", ).
+    """
+    minecraft = Minecraft(Path(project_name))
+    minecraft.install()
 
 
 if __name__ == "__main__":

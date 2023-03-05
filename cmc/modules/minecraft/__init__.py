@@ -1,3 +1,3 @@
-from .__main__ import create_server
+from .Minecraft import Minecraft
 
-__all__ = [create_server]
+__all__ = [Minecraft]

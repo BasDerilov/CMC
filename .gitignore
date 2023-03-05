@@ -3,3 +3,4 @@ dist
 **/__pycache__
 modules/minecraft/server/**
 .venv
+.pytest_cache
