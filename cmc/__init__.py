@@ -1,6 +1,6 @@
-"""Top-level package for gcp_mc."""
+"""Top-level package for cmc."""
 
-__app_name__ = "gcp-mc"
+__app_name__ = "cmc"
 __version__ = "0.9.0"
 
 

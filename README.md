@@ -1,25 +1,25 @@
-<h1 align="center">Google Cloud Platform Minecraft</h1>
+<h1 align="center">Cloud Minecraft</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.shields.io/github/languages/top/BasDerilov/gcp_mc?color=56BEB8">
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/BasDerilov/cmc?color=56BEB8">
 
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/BasDerilov/gcp_mc?color=56BEB8">
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/BasDerilov/cmc?color=56BEB8">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/BasDerilov/gcp_mc?color=56BEB8">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/BasDerilov/cmc?color=56BEB8">
 
-  <img alt="License" src="https://img.shields.io/github/license/BasDerilov/gcp_mc?color=56BEB8">
+  <img alt="License" src="https://img.shields.io/github/license/BasDerilov/cmc?color=56BEB8">
 
-  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/BasDerilov/gcp_mc?color=56BEB8" /> -->
+  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/BasDerilov/cmc?color=56BEB8" /> -->
 
-  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/BasDerilov/gcp_mc?color=56BEB8" /> -->
+  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/BasDerilov/cmc?color=56BEB8" /> -->
 
-  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/BasDerilov/gcp_mc?color=56BEB8" /> -->
+  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/BasDerilov/cmc?color=56BEB8" /> -->
 </p>
 
 <!-- Status -->
 
 <h4 align="center"> 
-	🚧  GCP-MC 🚀 Under construction...  🚧
+	🚧  CMC 🚀 Under construction...  🚧
 </h4>
 
 <hr>
@@ -63,10 +63,10 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com), [
 
 ```bash
 # Clone this project
-$ git clone https://github.com/BasDerilov/gcp_mc
+$ git clone https://github.com/BasDerilov/cmc
 
 # Access
-$ cd gcp_mc
+$ cd cmc
 
 # Install dependencies
 $ poetry install
@@ -76,7 +76,7 @@ $ poetry shell
 
 # If everything installed corectly this should give you the available commands
 # Keep in mind the CURSE_API_KEY still needs to be set as an env variable
-$ python -m gcp_mc --help
+$ python -m cmc --help
 
 ```
 

@@ -1,18 +1,20 @@
-"""gcp_mc is a tool for quicly spooling up minecraft servers locally or on Google Cloud
+"""cmc is a tool for quicly spooling up minecraft servers locally or on Google Cloud
 Platform
 
 """
 
 
-import os
 import typer
 from pathlib import Path
-from gcp_mc import __app_name__, __version__
+from rich.console import Console
+from cmc import __app_name__, __version__
 from .modules.minecraft import create_server
 
 from typing import Optional
 
 app = typer.Typer()
+
+console = Console()
 
 
 def _version_callback(value: bool) -> None:
@@ -53,7 +55,6 @@ def init(
     Args:
         project_name (str): the name of your minecraft project (server)
     """
-    os.system("cls")
 
     create_server(Path.cwd().joinpath(project_name), {}, dynmap={})
 

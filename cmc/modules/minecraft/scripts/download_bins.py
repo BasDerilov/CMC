@@ -1,17 +1,13 @@
 import json
-import logging
-import shutil
 import requests
 from pathlib import Path
-from tqdm.auto import tqdm
-
+from rich.progress import Progress
 from ..env import (
     CURSE_API,
     GAME_VERSION,
     CURSEFORGE_API_KEY,
 )
-
-logger = logging.getLogger(__name__)
+from ..console import console, err_console
 
 
 def download_bin(url: str, file_path: Path):
@@ -21,22 +17,25 @@ def download_bin(url: str, file_path: Path):
         total_length = int(response.headers.get("Content-Length"))
 
         if response.status_code != 200:
-            logger.error(f"response code for {url} was {response.status_code}")
+            console.print(
+                f"response code for {url} was {response.status_code}", style="warning"
+            )
             return
 
-        print(file_path)
-        with tqdm.wrapattr(
-            response.raw, "read", total=total_length, desc="Downloading "
-        ) as raw:
-            with open(file_path, "wb") as file:
-                shutil.copyfileobj(raw, file)
+        with Progress() as progress:
+            console.print(file_path.name, style="info")
+            download_task = progress.add_task("", total=total_length)
 
-    logger.info(f"downloaded file {file_path}")
+            with open(file_path, "wb") as file:
+                for chunk in response.iter_content(chunk_size=1024):
+                    progress.update(download_task, advance=1024)
+                    if chunk:
+                        file.write(chunk)
+
+    console.line()
 
 
 def download_curse_resource(slug: str, server_dir: Path):
-    logger.info(f"fetching {slug}")
-
     headers = {"Accept": "application/json", "x-api-key": CURSEFORGE_API_KEY}
 
     responese = requests.get(
@@ -46,10 +45,11 @@ def download_curse_resource(slug: str, server_dir: Path):
         timeout=1000,
     )
 
-    if responese.status_code != 200:
+    if responese.json()["pagination"]["resultCount"] == 0:
 
-        logger.error(
-            f"curse resource {slug} returned status code {responese.status_code}"
+        err_console.print(
+            f'Curse resource "{slug}" returned 0 matches. Is this the correct name?',
+            style="warning",
         )
         return
 
@@ -66,7 +66,7 @@ def download_curse_resource(slug: str, server_dir: Path):
     )
 
     if responese.status_code != 200:
-        logger.error(
+        err_console.print(
             f"curse resource file for {slug}\
                 returned status code {responese.status_code}"
         )
@@ -80,14 +80,15 @@ def download_curse_resource(slug: str, server_dir: Path):
 
 
 def download_deps(source_json: Path, server_dir: Path):
-    logger.info("reading palmsbet-mc dependencies")
 
     with open(source_json, "r") as required_bins:
         deps = json.load(required_bins)
 
+        console.log("downloading minecraft server binary", style="info")
         download_bin(deps["server"], server_dir.joinpath("server.jar"))
 
         plugins = deps["plugins"]
 
+        console.log("downloading curse resources", style="curse")
         for plugin in plugins:
             download_curse_resource(plugin, server_dir)

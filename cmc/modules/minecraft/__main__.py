@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+
+from .console import console
 from .scripts.utils import ensure_dirs
 from .scripts.download_bins import download_deps
 from .scripts.configure import configure_plugin, configure_server
@@ -27,6 +29,7 @@ def create_server(SERVER_DIR: Path, server_conf_obj: dict, **kwargs):
             structure of the plugin you are trying to configure
     """
 
+    console.rule(f'Initializing "{SERVER_DIR.name}"', style="info")
     # TODO Clear this mess up and parametrize the containers
     CONFIG_DIR = Path(".").joinpath("config")
     PLUGINS_CONFIG_DIR = CONFIG_DIR.joinpath("plugins")

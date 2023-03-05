@@ -1,5 +1,5 @@
 from ..env import MINECRAFT_SERVER_IMAGE, SERVER_DIR
-from utils import logging as log
+from ..console import console
 
 
 def start_minecraft_docker(client):
@@ -12,4 +12,6 @@ def start_minecraft_docker(client):
         network_mode="host",
     )
 
-    log.started(f"container started with id: {minecraft_container.short_id}")
+    console.log(
+        f"container started with id: {minecraft_container.short_id}", style="info"
+    )
