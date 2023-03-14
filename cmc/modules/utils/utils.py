@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 
 import yaml
-from cmc.modules.exceptions import MissingEnvVariable
+from ..exceptions import MissingEnvVariable
 
 
 def set_vars_from_json(file: str):

@@ -119,6 +119,7 @@ class Minecraft:
         download_url = responese["data"]["downloadUrl"]
         file_name = responese["data"]["fileName"]
 
+        console.log(f"resource url: {download_url}", style="curse")
         self.download_bin(
             download_url, self.SERVER_DIR.joinpath("plugins").joinpath(file_name)
         )
