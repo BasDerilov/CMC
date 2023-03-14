@@ -9,6 +9,7 @@ import typer
 from rich.console import Console
 from cmc import __app_name__, __version__
 from .modules.minecraft import Minecraft
+from .modules.initializer import Initializer
 
 from typing import Optional
 
@@ -55,7 +56,8 @@ def init(
     Args:
         project_name (str): the name of your minecraft project (server)
     """
-
+    init = Initializer(project_name)
+    init.initialize_new_server()
     # create_server(Path.cwd().joinpath(project_name), {}, dynmap={})
 
 
