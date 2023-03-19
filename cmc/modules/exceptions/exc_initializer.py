@@ -1,4 +1,4 @@
-class CmcPackageExist(Exception):
+class CmcPackageExists(Exception):
     """A cmc-package.json file already exists"""
 
 

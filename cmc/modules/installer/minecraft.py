@@ -1,6 +1,7 @@
 import json
 import requests
 from pathlib import Path
+from cmc.models import CmcConfigModel, CmcPackageModel
 from cmc.modules.utils import (
     ensure_dirs,
     require_var,
@@ -14,24 +15,23 @@ from .console import err_console, console
 
 class Minecraft:
 
-    GAME_VERSION = "1.19.3"
     CURSE_API_KEY: str
-    CURSE_API: str = "https://api.curseforge.com"
-    SERVER_CONF_OBJ: dict
-    PLUGIN_CONFIGURATION_OBJS: dict
-
-    SERVER_DIR: Path
-    CONFIG_DIR: Path
-    BINS_SOURCE: Path
-    SERVER_PLUGINS_DIR: Path
-    PLUGINS_CONFIG_DIR: Path
+    package = CmcPackageModel
+    conf: CmcConfigModel
 
     # MINECRAFT_SERVER_IMAGE = "openjdk:17.0.1-jdk-slim"
     # # Database constants
     # DATABASE_IMAGE = "mysql:oracle"
 
+    # TODO Rework this entire pile of garbage to install only minecraft
+    # NOTE Should need only a package and config data models
+    # NOTE Wont need a curse API key, for this migraine check installer/plugin.py
+    # NOTE No need for dynamic file path handling bananza. Just use relative paths
+
+    # NOTE The syntax errors are expected, I am too tired to finish this now
+
     def __init__(
-        self, server_dir: Path = Path("server"), server_conf_obj: dict = None, **kwargs
+        self,
     ) -> None:
         CONFIG_DIR = Path(".").joinpath("config")
         self.CONFIG_DIR = CONFIG_DIR

@@ -4,12 +4,15 @@ Platform
 """
 
 
-from pathlib import Path
+import json
 import typer
 from rich.console import Console
 from cmc import __app_name__, __version__
-from .modules.minecraft import Minecraft
-from .modules.initializer import Initializer
+
+from .models import CmcConfigModel, CmcPackageModel
+
+from .modules.installer import Minecraft
+from .modules.initializer import Initializer, CmcConfig, CmcPackage
 
 from typing import Optional
 
@@ -56,28 +59,38 @@ def init(
     Args:
         project_name (str): the name of your minecraft project (server)
     """
-    init = Initializer(project_name)
+
+    package = CmcPackage(project_name)
+    config = CmcConfig()
+
+    init = Initializer(package, config)
+
     init.initialize_new_server()
+
     # create_server(Path.cwd().joinpath(project_name), {}, dynmap={})
 
 
 @app.command()
-def install(
-    project_name: str = typer.Option(
-        str("server"),
-        "--proj-name",
-        "-n",
-        prompt="project name",
-    ),
-) -> None:
+def install() -> None:
     """the install command will create a server directory and install your bins in it
 
     Args:
         project_name (str, optional): _description_. Defaults to typer.Option
         ( str("server"), "--proj-name", "-n", prompt="project name", ).
     """
-    minecraft = Minecraft(Path(project_name))
-    minecraft.install()
+
+    package = None
+    with open("cmc-package.json", "r") as package_f:
+        data = json.load(package_f)
+        package = CmcPackageModel(**data)
+
+    config = None
+    with open("cmc-config.json", "r") as config_f:
+        data = json.load(config_f)
+        config = CmcConfigModel(**data)
+
+    # minecraft = Minecraft(Path())
+    # minecraft.install()
 
 
 if __name__ == "__main__":

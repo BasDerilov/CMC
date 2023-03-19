@@ -5,13 +5,13 @@ from .exc_minecraft import (
     MissingEnvVariable,
 )
 
-from .exc_initializer import CmcConfigExists, CmcPackageExist
+from .exc_initializer import CmcConfigExists, CmcPackageExists
 
 __all__ = [
-    CurseResourceNotFound,
-    InvalidApiToken,
-    MissingApiToken,
-    MissingEnvVariable,
-    CmcPackageExist,
-    CmcConfigExists,
+    "CurseResourceNotFound",
+    "InvalidApiToken",
+    "MissingApiToken",
+    "MissingEnvVariable",
+    "CmcPackageExists",
+    "CmcConfigExists",
 ]
