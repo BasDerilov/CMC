@@ -5,18 +5,18 @@ Platform
 
 
 import json
-import typer
-from rich.console import Console
+from cmc import typer
 from cmc import __app_name__, __version__
+from pydantic.error_wrappers import ValidationError
+from rich.console import Console
 
 from .models import CmcConfigModel, CmcPackageModel
-
-from .modules.installer import Minecraft
+from .modules.installer import Minecraft, Plugins
 from .modules.initializer import Initializer, CmcConfig, CmcPackage
 
 from typing import Optional
 
-app = typer.Typer()
+app = typer.Typer(no_args_is_help=True)
 
 console = Console()
 
@@ -67,31 +67,52 @@ def init(
 
     init.initialize_new_server()
 
-    # create_server(Path.cwd().joinpath(project_name), {}, dynmap={})
 
-
-@app.command()
-def install() -> None:
-    """the install command will create a server directory and install your bins in it
+@app.async_command()
+async def install(
+    api_key: str = typer.Option(
+        None,
+        "--api-key",
+        "-k",
+        prompt="enter your curse api key (optional)",
+    )
+) -> None:
+    """Install
 
     Args:
-        project_name (str, optional): _description_. Defaults to typer.Option
-        ( str("server"), "--proj-name", "-n", prompt="project name", ).
+        api_key (str, optional): Defaults to None.
     """
+    # TODO This validation should be done somewhere else
+    # and should be more readable for users
 
     package = None
-    with open("cmc-package.json", "r") as package_f:
-        data = json.load(package_f)
-        package = CmcPackageModel(**data)
+
+    try:
+
+        with open("cmc-package.json", "r") as package_f:
+            data = json.load(package_f)
+            package = CmcPackageModel(**data)
+
+    except ValidationError as err:
+        console.print(err)
+        return
 
     config = None
-    with open("cmc-config.json", "r") as config_f:
-        data = json.load(config_f)
-        config = CmcConfigModel(**data)
 
-    # minecraft = Minecraft(Path())
-    # minecraft.install()
+    try:
 
+        with open("cmc-config.json", "r") as config_f:
+            data = json.load(config_f)
+            config = CmcConfigModel(**data)
 
-if __name__ == "__main__":
-    main()
+    except ValidationError as err:
+        console.print(err)
+        return
+
+    # End of validation block
+
+    minecraft_installer = Minecraft(package, config)
+    plugins_installer = Plugins(package, config)
+    minecraft_installer.install()
+    plugins_installer.install_from_urls()
+    plugins_installer.install_from_curse(api_key)

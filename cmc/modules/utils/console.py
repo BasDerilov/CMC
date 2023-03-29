@@ -3,7 +3,7 @@ from rich.theme import Theme
 
 theme = Theme(
     {
-        "info": "dark_sea_green2",
+        "info": "pale_turquoise1",
         "warning": "light_salmon1",
         "danger": "bold red",
     }

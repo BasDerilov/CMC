@@ -1,3 +1,3 @@
-from .cmc_data import CmcConfigModel, CmcPackageModel
+from .cmc_data import CmcConfigModel, CmcPackageModel, PluginConfigModel
 
-__all__ = ["CmcPackageModel", "CmcConfigModel"]
+__all__ = ["CmcPackageModel", "CmcConfigModel", "PluginConfigModel"]

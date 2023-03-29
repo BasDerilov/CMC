@@ -2,9 +2,14 @@ from typing import Any
 from pydantic import BaseModel
 
 
+class PluginConfigModel(BaseModel):
+    config_file_name: str
+    config: dict[str, Any]
+
+
 class CmcConfigModel(BaseModel):
     minecraft: dict[str, str]
-    plugins: dict[str, Any]
+    plugins: dict[str, PluginConfigModel]
 
 
 class CmcPackageModel(BaseModel):
@@ -13,4 +18,4 @@ class CmcPackageModel(BaseModel):
     api: str
     server_jar: str
     curse_plugins: list[str]
-    url_plugins: dict[str, str]
+    url_plugins: list[str]

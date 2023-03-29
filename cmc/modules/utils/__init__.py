@@ -8,6 +8,8 @@ from .utils import (
     write_as_yml,
 )
 
+from .downloader import Downloader
+
 __all__ = [
     set_vars_from_json,
     require_var,
@@ -16,4 +18,5 @@ __all__ = [
     deep_update,
     write_as_config,
     write_as_yml,
+    Downloader,
 ]
